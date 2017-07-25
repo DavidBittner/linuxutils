@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+import sys
+import json
+import urllib.request
+import webbrowser
+
+if len(sys.argv) == 1:
+    print("Not enough arguments.\nUsage:\n\tippos [ipaddr]")
+    exit()
+
+jsonStr = urllib.request.urlopen("http://ip-api.com/json/" + sys.argv[1])
+jsonDecoded = json.load(jsonStr)
+
+if not "lat" in jsonDecoded:
+    print("Query failed with message:")
+    print("\t"+jsonDecoded["message"])
+    exit()
+
+print("Latitude: " + str(jsonDecoded["lat"]))
+print("Longitude: " + str(jsonDecoded["lon"]) + "\n")
+print("Country: " + jsonDecoded["country"] )
+print("Region: " + jsonDecoded["region"] )
+print("City: " + jsonDecoded["city"] )
+
+url = "https://www.google.com/maps/@"+str(jsonDecoded["lat"])+","+str(jsonDecoded["lon"])+",14.9z"
+webbrowser.open(url)
