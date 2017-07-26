@@ -6,7 +6,7 @@ import urllib.request
 import webbrowser
 
 if len(sys.argv) == 1:
-    print("Not enough arguments.\nUsage:\n\tippos [ipaddr]")
+    print("Not enough arguments.\nUsage:\n\tippos [ipaddr] [-b opens location in browser]")
     exit()
 
 jsonStr = urllib.request.urlopen("http://ip-api.com/json/" + sys.argv[1])
@@ -23,5 +23,7 @@ print("Country: " + jsonDecoded["country"] )
 print("Region: " + jsonDecoded["region"] )
 print("City: " + jsonDecoded["city"] )
 
-url = "https://www.google.com/maps/@"+str(jsonDecoded["lat"])+","+str(jsonDecoded["lon"])+",14.9z"
-webbrowser.open(url)
+for arg in sys.argv:
+    if arg == "-b":
+        url = "https://www.google.com/maps/@"+str(jsonDecoded["lat"])+","+str(jsonDecoded["lon"])+",14.9z"
+        webbrowser.open(url)
