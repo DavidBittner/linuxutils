@@ -7,7 +7,7 @@ fullstr = str()
 for i in sys.argv:
     if i is sys.argv[0]:
         continue
-    fullstr+=i
+    fullstr+=(i + " ")
 
 for i in fullstr:
     print(i, " ", end="")
